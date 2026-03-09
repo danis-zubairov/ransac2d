@@ -1,0 +1,57 @@
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: end-of-file-fixer        # Ensures every file ends with a newline
+      - id: trailing-whitespace      # Trims whitespace at the end of lines
+      - id: check-case-conflict      # Checks for files that would conflict on case-insensitive systems
+      - id: check-docstring-first    # Ensures docstrings are before other code
+      - id: detect-private-key       # Scans for accidentally committed private keys
+      - id: check-yaml               # Checks YAML file syntax
+      # - id: check-added-large-files
+      #   args: ['--maxkb=500']
+
+  # Upgrade to modern Python syntax
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.0
+    hooks:
+    - id: pyupgrade
+      name: Upgrade code
+      args: [
+        --py39-plus,
+        --keep-runtime-typing
+      ]
+
+  # Formatting and linting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.11
+    hooks:
+      - id: ruff
+        args: [--fix]
+
+  # Clean unused imports
+  # - repo: https://github.com/hadialqattan/pycln
+  #   rev: v2.4.0
+  #   hooks:
+  #     - id: pycln
+  #       #args: [--all]
+  #       args: [--config=pyproject.toml]
+
+  # Security scanning with Bandit
+  # - repo: https://github.com/PyCQA/bandit
+  #   rev: 1.7.5
+  #   hooks:
+  #     - id: bandit
+  #       name: bandit
+  #       args: ["-ll", "-c", "pyproject.toml"]
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: Run tests with pytest
+        entry: pytest tests/ -v --cov=ransac2d/ --cov-report=term-missing:skip-covered
+        language: system
+        types: [python]
+        pass_filenames: false
+        stages: [pre-push]  # Only run on push to avoid slowing down every commit
