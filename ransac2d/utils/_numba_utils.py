@@ -46,12 +46,17 @@ def transform_to_ellipse_frame(px, py, cx, cy, theta):
 
 @njit(cache=True)
 def distance_to_rectangle(u, v, a, b):
-    """Distance from (u, v) to rectangle boundary. u, v are arrays."""
+    """Euclidean distance from (u, v) to the boundary of [-a/2,a/2] x [-b/2,b/2]."""
     ha = a / 2.0
     hb = b / 2.0
-    du = np.abs(np.abs(u) - ha)
-    dv = np.abs(np.abs(v) - hb)
-    return np.minimum(du, dv)
+    au = np.abs(u)
+    av = np.abs(v)
+    du = np.maximum(au - ha, 0.0)
+    dv = np.maximum(av - hb, 0.0)
+    inside = (au <= ha) & (av <= hb)
+    dist_inside = np.minimum(ha - au, hb - av)
+    dist_outside = np.sqrt(du * du + dv * dv)
+    return np.where(inside, dist_inside, dist_outside)
 
 @njit(cache=True)
 def distance_to_ellipse(u, v, a, b):
