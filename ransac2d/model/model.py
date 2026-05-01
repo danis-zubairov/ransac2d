@@ -9,6 +9,7 @@ from ..utils._numba_utils import (
     transform_to_ellipse_frame,
     transform_to_rect_frame,
     distance_to_circle,
+    distance_to_line,
     distance_to_rectangle,
     distance_to_ellipse,
 )
@@ -166,3 +167,35 @@ class Circle(BaseModel):
     def from_params(cls, params: np.ndarray) -> Circle:
         """Build from (x0, y0, r)."""
         return cls(center=params[:2].copy(), radius=float(params[2]))
+
+
+@dataclass
+class Line(BaseModel):
+    """Infinite line: implicit `a*x + b*y + c = 0` with `sqrt(a^2 + b^2) = 1`."""
+
+    a: float
+    b: float
+    c: float
+
+    def direction(self) -> np.ndarray:
+        """Unit direction vector along the line (perpendicular to normal `(a, b)`)."""
+        d = np.array([-self.b, self.a], dtype=np.float64)
+        n = float(np.linalg.norm(d))
+        if n < 1e-12:
+            return d
+        return d / n
+
+    def residuals(self, points: np.ndarray) -> np.ndarray:
+        """Per-point orthogonal distance to the line."""
+        px = points[:, 0]
+        py = points[:, 1]
+        return distance_to_line(px, py, self.a, self.b, self.c)
+
+    @classmethod
+    def from_params(cls, params: np.ndarray) -> Line:
+        """Build from `(a, b, c)`; re-normalizes so `sqrt(a^2 + b^2) = 1`."""
+        a, b, c = float(params[0]), float(params[1]), float(params[2])
+        norm = float(np.hypot(a, b))
+        if norm < 1e-12:
+            return cls(a=1.0, b=0.0, c=0.0)
+        return cls(a=a / norm, b=b / norm, c=c / norm)

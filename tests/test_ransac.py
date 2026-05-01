@@ -8,6 +8,7 @@ from ransac2d import (
     CircleEstimator,
     Ellipse,
     EllipseEstimator,
+    LineEstimator,
     RANSACFitter,
     Rectangle,
     RectangleEstimator,
@@ -140,6 +141,62 @@ def test_fit_circle():
     assert isinstance(fitter.model_, Circle)
     assert fitter.inlier_mask_ is not None
     assert np.sum(fitter.inlier_mask_) >= 25
+
+def _line_points_inclined(n: int, rng=None):
+    """Points near y = 0.5*x + 0.1 with small noise."""
+    rng = rng or np.random.default_rng(1)
+    x = rng.uniform(-1.0, 1.0, n)
+    y = 0.5 * x + 0.1 + rng.normal(0, 0.02, n)
+    return np.column_stack([x, y])
+
+
+def _line_points_near_vertical(n: int, rng=None):
+    """Points near x = 0.3 with small noise (nearly vertical edge)."""
+    rng = rng or np.random.default_rng(2)
+    x = 0.3 + rng.normal(0, 0.015, n)
+    y = rng.uniform(-1.0, 1.0, n)
+    return np.column_stack([x, y])
+
+
+def test_fit_line_inclined():
+    rng = np.random.default_rng(11)
+    points = _line_points_inclined(200, rng=rng)
+    fitter = RANSACFitter(
+        LineEstimator(),
+        max_trials=400,
+        residual_threshold=0.05,
+        min_inliers=40,
+        random_state=55,
+    )
+    fitter.fit(points)
+    assert fitter.model_ is not None
+    assert fitter.inlier_mask_ is not None
+    assert np.sum(fitter.inlier_mask_) >= 40
+    a, b, c = fitter.model_.a, fitter.model_.b, fitter.model_.c
+    assert abs(np.hypot(a, b) - 1.0) < 1e-9
+    dists = np.abs(points @ np.array([a, b]) + c)
+    assert np.all(dists[fitter.inlier_mask_] <= 0.05 + 1e-9)
+
+
+def test_fit_line_near_vertical():
+    rng = np.random.default_rng(12)
+    points = _line_points_near_vertical(180, rng=rng)
+    fitter = RANSACFitter(
+        LineEstimator(),
+        max_trials=400,
+        residual_threshold=0.05,
+        min_inliers=35,
+        random_state=56,
+    )
+    fitter.fit(points)
+    assert fitter.model_ is not None
+    assert fitter.inlier_mask_ is not None
+    assert np.sum(fitter.inlier_mask_) >= 35
+    a, b, c = fitter.model_.a, fitter.model_.b, fitter.model_.c
+    assert abs(np.hypot(a, b) - 1.0) < 1e-9
+    dists = np.abs(points @ np.array([a, b]) + c)
+    assert np.all(dists[fitter.inlier_mask_] <= 0.05 + 1e-9)
+
 
 def test_fit_circle_known_size():
     rng = np.random.default_rng(97)

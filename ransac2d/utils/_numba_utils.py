@@ -69,3 +69,9 @@ def distance_to_circle(px, py, cx, cy, r):
     """Distance from (x, y) to circle (x-cx)^2 + (y-cy)^2 = r^2"""
     d = np.sqrt((px - cx) ** 2 + (py - cy) ** 2)
     return np.abs(d - r)
+
+
+@njit(cache=True)
+def distance_to_line(px, py, a, b, c):
+    """Orthogonal distance from points to line a*x + b*y + c = 0 (a,b normalized)."""
+    return np.abs(a * px + b * py + c)

@@ -1,7 +1,13 @@
 __version__ = "0.1.0"
 
-from .estimator import BaseEstimator, CircleEstimator, EllipseEstimator, RectangleEstimator
-from .model import Ellipse, Rectangle, Circle
+from .estimator import (
+    BaseEstimator,
+    CircleEstimator,
+    EllipseEstimator,
+    LineEstimator,
+    RectangleEstimator,
+)
+from .model import Ellipse, Rectangle, Circle, Line
 from .fitter import RANSACFitter
 
 __all__ = [
@@ -10,7 +16,9 @@ __all__ = [
     "RectangleEstimator",
     "EllipseEstimator",
     "CircleEstimator",
+    "LineEstimator",
     "Rectangle",
     "Ellipse",
     "Circle",
+    "Line",
 ]
