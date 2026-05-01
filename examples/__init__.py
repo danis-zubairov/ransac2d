@@ -3,6 +3,7 @@
 Run from the repository root, for example:
 
 - ``python -m examples.demo_rectangle``
+- ``python -m examples.demo_line``
 - ``PYTHONPATH=src python examples/demo_rectangle.py``
 """
 
