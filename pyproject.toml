@@ -7,7 +7,7 @@ name = "ransac2d"
 dynamic = ["version"]
 description = "Fit 2D shapes (rectangle, ellipse, circle, etc.) using RANSAC"
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
 requires-python = ">=3.9"
 authors = [
     { name = "Danis Zubairov"}
@@ -17,7 +17,6 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Engineering",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -44,6 +43,9 @@ examples = ["matplotlib>=3.8"]
 [project.urls]
 "Homepage" = "https://github.com/danis-zubairov/ransac2d"
 "Issues" = "https://github.com/danis-zubairov/ransac2d/issues"
+
+[tool.setuptools.dynamic]
+version = { attr = "ransac2d.__version__" }
 
 [tool.setuptools.packages.find]
 exclude = ["tests", "examples"]
