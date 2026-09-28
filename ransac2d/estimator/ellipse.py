@@ -6,8 +6,8 @@ import numpy as np
 from scipy import linalg
 from scipy.optimize import least_squares
 
-from ..utils._numba_utils import transform_to_ellipse_frame
 from ..model import Ellipse
+from ..utils._numba_utils import transform_to_ellipse_frame
 from .base import BaseEstimator
 
 

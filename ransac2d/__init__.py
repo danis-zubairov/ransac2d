@@ -7,18 +7,18 @@ from .estimator import (
     LineEstimator,
     RectangleEstimator,
 )
-from .model import Ellipse, Rectangle, Circle, Line
 from .fitter import RANSACFitter
+from .model import Circle, Ellipse, Line, Rectangle
 
 __all__ = [
     "BaseEstimator",
-    "RANSACFitter",
-    "RectangleEstimator",
-    "EllipseEstimator",
-    "CircleEstimator",
-    "LineEstimator",
-    "Rectangle",
-    "Ellipse",
     "Circle",
+    "CircleEstimator",
+    "Ellipse",
+    "EllipseEstimator",
     "Line",
+    "LineEstimator",
+    "RANSACFitter",
+    "Rectangle",
+    "RectangleEstimator",
 ]

@@ -5,8 +5,8 @@ from typing import Optional
 import numpy as np
 from scipy.optimize import least_squares
 
-from ..utils._numba_utils import transform_to_rect_frame
 from ..model import Rectangle
+from ..utils._numba_utils import transform_to_rect_frame
 from .base import BaseEstimator
 
 

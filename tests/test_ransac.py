@@ -14,6 +14,7 @@ from ransac2d import (
     RectangleEstimator,
 )
 
+
 def _rectangle_points(n: int, center, theta: float, a: float, b: float, noise: float = 0.02, rng=None):
     rng = rng or np.random.default_rng(0)
     t = np.linspace(0, 1, max(4, n // 4), endpoint=False)

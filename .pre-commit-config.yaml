@@ -1,7 +1,7 @@
 # .pre-commit-config.yaml
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
       - id: end-of-file-fixer        # Ensures every file ends with a newline
       - id: trailing-whitespace      # Trims whitespace at the end of lines
@@ -14,7 +14,7 @@ repos:
 
   # Upgrade to modern Python syntax
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.15.0
+    rev: v3.21.2
     hooks:
     - id: pyupgrade
       name: Upgrade code
@@ -25,7 +25,7 @@ repos:
 
   # Formatting and linting
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.11
+    rev: v0.15.5
     hooks:
       - id: ruff
         args: [--fix]

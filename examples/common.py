@@ -10,7 +10,6 @@ from matplotlib.axes import Axes
 
 from ransac2d import RANSACFitter
 
-
 GenerateFn = Callable[[np.random.Generator], tuple[np.ndarray, Any]]
 FitterFn = Callable[[Any], RANSACFitter]
 DrawFn = Callable[[Axes, Any], None]

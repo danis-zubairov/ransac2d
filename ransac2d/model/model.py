@@ -6,13 +6,14 @@ from dataclasses import dataclass
 import numpy as np
 
 from ..utils._numba_utils import (
-    transform_to_ellipse_frame,
-    transform_to_rect_frame,
     distance_to_circle,
+    distance_to_ellipse,
     distance_to_line,
     distance_to_rectangle,
-    distance_to_ellipse,
+    transform_to_ellipse_frame,
+    transform_to_rect_frame,
 )
+
 
 @dataclass
 class BaseModel(ABC):
