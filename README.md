@@ -9,21 +9,21 @@ Fit geometric shapes to noisy 2D point clouds with RANSAC.
 <table border="0" cellpadding="6" cellspacing="0" align="center">
   <tr>
     <td align="center" valign="top" width="50%">
-      <img src="docs/images/line.png" alt="Line RANSAC fit" width="420"/><br/>
+      <img src="docs/img/line.png" alt="Line RANSAC fit" width="420"/><br/>
       <b>Line</b>
     </td>
     <td align="center" valign="top" width="50%">
-      <img src="docs/images/circle.png" alt="Circle RANSAC fit" width="420"/><br/>
+      <img src="docs/img/circle.png" alt="Circle RANSAC fit" width="420"/><br/>
       <b>Circle</b>
     </td>
   </tr>
   <tr>
     <td align="center" valign="top" width="50%">
-      <img src="docs/images/ellipse.png" alt="Ellipse RANSAC fit" width="420"/><br/>
+      <img src="docs/img/ellipse.png" alt="Ellipse RANSAC fit" width="420"/><br/>
       <b>Ellipse</b>
     </td>
     <td align="center" valign="top" width="50%">
-      <img src="docs/images/rectangle.png" alt="Rectangle RANSAC fit" width="420"/><br/>
+      <img src="docs/img/rectangle.png" alt="Rectangle RANSAC fit" width="420"/><br/>
       <b>Rectangle</b>
     </td>
   </tr>
